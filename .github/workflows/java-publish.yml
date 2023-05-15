@@ -17,25 +17,23 @@
 
 name: "Publish Snapshot to Maven"
 on:
-  workflow_dispatch:
   push:
     branches: [ master ]
-    paths:
-      - .github/workflows/java-publish-snapshot.yml
-      - lang/java/**
-      - pom.xml
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 defaults:
   run:
-    working-directory: lang/java
+    working-directory: lang/java/avro
 
 jobs:
-  publish-snapshot:
+  publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v3
 
@@ -53,10 +51,7 @@ jobs:
           distribution: 'adopt'
           java-version: 8
 
-      - name: Deploy Maven snapshots
+      - name: Publish package
+        run: "mvn -DskipTests deploy"
         env:
-          ASF_USERNAME: ${{ secrets.NEXUS_USER }}
-          ASF_PASSWORD: ${{ secrets.NEXUS_PW }}
-        run: |
-          echo "<settings><servers><server><id>apache.snapshots.https</id><username>$ASF_USERNAME</username><password>$ASF_PASSWORD</password></server></servers></settings>" > settings.xml
-          mvn --settings settings.xml -U -B -e -fae -ntp -DskipTests deploy
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
