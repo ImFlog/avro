@@ -13,24 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: 'Maven 4'
+name: 'Rat'
 on:
-  # Only run on manual build, we are not interested in maven 4
   workflow_dispatch:
-#  push:
-#    branches: [ master ]
-#  pull_request:
-#    branches: [ master ]
-#    paths:
-#    - .github/workflows/maven4.yml
-#    - lang/java/**
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  maven4:
+  rat:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -43,24 +39,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Cache Maven 4 Build Cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/build-cache
-          key: ${{ runner.os }}-maven-build-cache-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-build-cache
-
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '11'
 
-      - name: Setup Maven 4
-        uses: stCarolas/setup-maven@v4.5
-        with:
-          maven-version: 4.0.0-alpha-4
-
-      - name: Test
-        run: mvn clean package
+      - name: Run Rat
+        run: mvn test -Dmaven.main.skip=true -Dmaven.test.skip=true -DskipTests=true -P rat -pl :avro-toplevel

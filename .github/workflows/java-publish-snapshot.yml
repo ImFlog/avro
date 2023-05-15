@@ -12,25 +12,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# For most projects, this workflow file will not need changing; you simply need
+# to commit it to your repository.
 
-name: 'Maven 4'
+name: "Publish Snapshot to Maven"
 on:
-  # Only run on manual build, we are not interested in maven 4
   workflow_dispatch:
-#  push:
-#    branches: [ master ]
-#  pull_request:
-#    branches: [ master ]
-#    paths:
-#    - .github/workflows/maven4.yml
-#    - lang/java/**
+  push:
+    branches: [ master ]
+    paths:
+      - .github/workflows/java-publish-snapshot.yml
+      - lang/java/**
+      - pom.xml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+defaults:
+  run:
+    working-directory: lang/java
+
 jobs:
-  maven4:
+  publish-snapshot:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -43,24 +47,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Cache Maven 4 Build Cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/build-cache
-          key: ${{ runner.os }}-maven-build-cache-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-build-cache
-
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
-          java-version: '11'
+          java-version: 8
 
-      - name: Setup Maven 4
-        uses: stCarolas/setup-maven@v4.5
-        with:
-          maven-version: 4.0.0-alpha-4
-
-      - name: Test
-        run: mvn clean package
+      - name: Deploy Maven snapshots
+        env:
+          ASF_USERNAME: ${{ secrets.NEXUS_USER }}
+          ASF_PASSWORD: ${{ secrets.NEXUS_PW }}
+        run: |
+          echo "<settings><servers><server><id>apache.snapshots.https</id><username>$ASF_USERNAME</username><password>$ASF_PASSWORD</password></server></servers></settings>" > settings.xml
+          mvn --settings settings.xml -U -B -e -fae -ntp -DskipTests deploy

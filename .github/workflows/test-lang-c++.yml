@@ -12,46 +12,46 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# For most projects, this workflow file will not need changing; you simply need
-# to commit it to your repository.
 
-name: "Publish Snapshot to Maven"
+name: Test C++
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  pull_request:
+    branches: [ master ]
+    paths:
+    - '.github/workflows/test-lang-c\+\+.yml'
+    - 'lang/c\+\+/**'
 
 defaults:
   run:
-    working-directory: lang/java/avro
+    working-directory: lang/c++
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  publish:
+  test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache Local Maven Repository
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+      - name: Install Dependencies
+        run: sudo apt update && sudo apt-get install -qqy cppcheck libboost-all-dev libsnappy-dev cmake
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'adopt'
-          java-version: 8
+      - name: Clean
+        run: ./build.sh clean
 
-      - name: Publish package
-        run: "mvn -DskipTests deploy"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lint
+        run: ./build.sh lint
+
+      - name: Test
+        run: ./build.sh test
+
+      - name: Release build
+        run: |
+          mkdir -p build
+          cd build
+          cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release ..
