@@ -1011,6 +1011,11 @@ public abstract class Schema extends JsonProperties implements Serializable {
       RemoteSchema that = (RemoteSchema) o;
       return equalNames(that);
     }
+
+    @Override
+    int computeHash() {
+      return super.computeHash() + name.hashCode();
+    }
   }
 
   @SuppressWarnings(value = "unchecked")
