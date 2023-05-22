@@ -18,12 +18,13 @@
 name: "Publish Snapshot to Maven"
 on:
   workflow_dispatch:
-  push:
-    branches: [ master ]
-    paths:
-      - .github/workflows/java-publish-snapshot.yml
-      - lang/java/**
-      - pom.xml
+#  Disabled for schema registry fork
+#  push:
+#    branches: [ master ]
+#    paths:
+#      - .github/workflows/java-publish-snapshot.yml
+#      - lang/java/**
+#      - pom.xml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

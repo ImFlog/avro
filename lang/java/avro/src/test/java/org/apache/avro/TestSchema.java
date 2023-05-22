@@ -17,7 +17,10 @@
  */
 package org.apache.avro;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.apache.avro.Schema.Field;
+import org.apache.avro.Schema.Type;
+import org.apache.avro.generic.GenericData;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,10 +33,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.avro.Schema.Field;
-import org.apache.avro.Schema.Type;
-import org.apache.avro.generic.GenericData;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSchema {
   @Test
@@ -409,4 +409,22 @@ public class TestSchema {
     assertEquals("Int", nameInt.getQualified("space"));
   }
 
+  @Test
+  void unknownTypeAccepted() {
+    final String inputSchema = "{\n" + "  \"type\" : \"record\",\n" + "  \"name\" : \"remote\",\n"
+        + "  \"namespace\" : \"ns\",\n" + "  \"fields\" : [ {\n" + "    \"name\" : \"value\",\n"
+        + "    \"type\" : \"T\"\n" + "  } ]\n" + "}";
+    Schema.Parser parser = new Schema.Parser();
+
+    String result = parser.setValidateUnknownTypes(false).parse(inputSchema).toString(true);
+    assertEquals(inputSchema, result);
+  }
+
+  @Test
+  void unknownTypeFailsWithoutFlag() {
+    final String inputSchema = "{\n" + "  \"type\" : \"record\",\n" + "  \"name\" : \"remote\",\n"
+        + "  \"namespace\" : \"ns\",\n" + "  \"fields\" : [ {\n" + "    \"name\" : \"value\",\n"
+        + "    \"type\" : \"T\"\n" + "  } ]\n" + "}";
+    assertThrows(SchemaParseException.class, () -> new Schema.Parser().parse(inputSchema));
+  }
 }
