@@ -51,7 +51,7 @@ A Maven plugin is also provided to compile .avdl files. To use it, add something
 <build>
   <plugins>
     <plugin>
-      <groupId>org.apache.avro</groupId>
+      <groupId>com.github.ImFlog</groupId>
       <artifactId>avro-maven-plugin</artifactId>
       <executions>
         <execution>

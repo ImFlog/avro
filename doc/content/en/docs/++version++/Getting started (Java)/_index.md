@@ -37,7 +37,7 @@ Alternatively, if you are using Maven, add the following dependency to your POM:
 
 ```xml
 <dependency>
-  <groupId>org.apache.avro</groupId>
+  <groupId>com.github.ImFlog</groupId>
   <artifactId>avro</artifactId>
   <version>{{< avro_version >}}</version>
 </dependency>
@@ -47,7 +47,7 @@ As well as the Avro Maven plugin (for performing code generation):
 
 ```xml
 <plugin>
-  <groupId>org.apache.avro</groupId>
+  <groupId>com.github.ImFlog</groupId>
   <artifactId>avro-maven-plugin</artifactId>
   <version>{{< avro_version >}}</version>
   <executions>

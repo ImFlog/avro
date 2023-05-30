@@ -33,12 +33,12 @@ This guide assumes basic familiarity with both Hadoop MapReduce and Avro. See th
 The code from this guide is included in the Avro docs under examples/mr-example. The example is set up as a Maven project that includes the necessary Avro and MapReduce dependencies and the Avro Maven plugin for code generation, so no external jars are needed to run the example. In particular, the POM includes the following dependencies:
 ```xml
 <dependency>
-  <groupId>org.apache.avro</groupId>
+  <groupId>com.github.ImFlog</groupId>
   <artifactId>avro</artifactId>
   <version>{{< avro_version >}}</version>
 </dependency>
 <dependency>
-  <groupId>org.apache.avro</groupId>
+  <groupId>com.github.ImFlog</groupId>
   <artifactId>avro-mapred</artifactId>
   <version>{{< avro_version >}}</version>
 </dependency>
@@ -51,7 +51,7 @@ The code from this guide is included in the Avro docs under examples/mr-example.
 And the following plugin:
 ```xml
 <plugin>
-  <groupId>org.apache.avro</groupId>
+  <groupId>com.github.ImFlog</groupId>
   <artifactId>avro-maven-plugin</artifactId>
   <version>{{< avro_version >}}</version>
   <executions>
