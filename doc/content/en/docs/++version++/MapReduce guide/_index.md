@@ -83,7 +83,7 @@ package example;
 import java.io.IOException;
 
 import org.apache.avro.*;
-import org.apache.avro.Schema.Type;
+import com.github.ImFlog.Schema.Type;
 import org.apache.avro.mapred.*;
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.fs.Path;
@@ -161,7 +161,7 @@ package example;
 
 import java.io.IOException;
 
-import org.apache.avro.Schema;
+import com.github.ImFlog.Schema;
 import org.apache.avro.mapred.AvroKey;
 import org.apache.avro.mapred.AvroValue;
 import org.apache.avro.mapreduce.AvroJob;
