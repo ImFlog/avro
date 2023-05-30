@@ -27,8 +27,7 @@ import com.github.ImFlog.util.ClassUtils;
 import java.io.IOException;
 
 /**
- * {@link DatumReader DatumReader} for generated Java
- * classes.
+ * {@link DatumReader DatumReader} for generated Java classes.
  */
 public class SpecificDatumReader<T> extends GenericDatumReader<T> {
   public SpecificDatumReader() {

@@ -20,8 +20,7 @@ import com.github.ImFlog.message.SchemaStore;
 
 @SuppressWarnings("all")
 @AvroGenerated
-public class TestRecordWithLogicalTypes extends SpecificRecordBase
-    implements SpecificRecord {
+public class TestRecordWithLogicalTypes extends SpecificRecordBase implements SpecificRecord {
   private static final long serialVersionUID = 3313339903648295220L;
   public static final Schema SCHEMA$ = new Schema.Parser().parse(
       "{\"type\":\"record\",\"name\":\"TestRecordWithLogicalTypes\",\"namespace\":\"org.apache.avro.specific\",\"fields\":[{\"name\":\"b\",\"type\":\"boolean\"},{\"name\":\"i32\",\"type\":\"int\"},{\"name\":\"i64\",\"type\":\"long\"},{\"name\":\"f32\",\"type\":\"float\"},{\"name\":\"f64\",\"type\":\"double\"},{\"name\":\"s\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"d\",\"type\":{\"type\":\"int\",\"logicalType\":\"date\"}},{\"name\":\"t\",\"type\":{\"type\":\"int\",\"logicalType\":\"time-millis\"}},{\"name\":\"ts\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}},{\"name\":\"dec\",\"type\":{\"type\":\"bytes\",\"logicalType\":\"decimal\",\"precision\":9,\"scale\":2}}]}");
@@ -162,8 +161,8 @@ public class TestRecordWithLogicalTypes extends SpecificRecordBase
   protected static final TimeConversions.TimeMillisConversion TIME_CONVERSION = new TimeConversions.TimeMillisConversion();
   protected static final TimeConversions.TimestampMillisConversion TIMESTAMP_CONVERSION = new TimeConversions.TimestampMillisConversion();
 
-  private static final Conversion<?>[] conversions = new Conversion<?>[] { null, null,
-      null, null, null, null, DATE_CONVERSION, TIME_CONVERSION, TIMESTAMP_CONVERSION, DECIMAL_CONVERSION, null };
+  private static final Conversion<?>[] conversions = new Conversion<?>[] { null, null, null, null, null, null,
+      DATE_CONVERSION, TIME_CONVERSION, TIMESTAMP_CONVERSION, DECIMAL_CONVERSION, null };
 
   @Override
   public Conversion<?> getConversion(int field) {

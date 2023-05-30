@@ -152,8 +152,8 @@ public class Conversions {
    *
    * @param datum      The object to be converted.
    * @param schema     The schema of datum. Cannot be null if datum is not null.
-   * @param type       The {@link LogicalType} of datum. Cannot be
-   *                   null if datum is not null.
+   * @param type       The {@link LogicalType} of datum. Cannot be null if datum
+   *                   is not null.
    * @param conversion The tool used to finish the conversion. Cannot be null if
    *                   datum is not null.
    * @return The result object, which is a high level object of the logical type.
@@ -211,8 +211,8 @@ public class Conversions {
    *
    * @param datum      The object to be converted.
    * @param schema     The schema of datum. Cannot be null if datum is not null.
-   * @param type       The {@link LogicalType} of datum. Cannot be
-   *                   null if datum is not null.
+   * @param type       The {@link LogicalType} of datum. Cannot be null if datum
+   *                   is not null.
    * @param conversion The tool used to finish the conversion. Cannot be null if
    *                   datum is not null.
    * @return The result object, which is an underlying representation object of

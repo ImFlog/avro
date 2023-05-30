@@ -34,8 +34,7 @@ import com.github.ImFlog.io.Encoder;
 import com.github.ImFlog.util.MapEntry;
 
 /**
- * {@link DatumWriter DatumWriter} for existing classes via
- * Java reflection.
+ * {@link DatumWriter DatumWriter} for existing classes via Java reflection.
  */
 public class ReflectDatumWriter<T> extends SpecificDatumWriter<T> {
   public ReflectDatumWriter() {

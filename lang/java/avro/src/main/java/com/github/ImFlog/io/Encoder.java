@@ -105,8 +105,8 @@ public abstract class Encoder implements Flushable {
 
   /**
    * Write a Unicode character string. The default implementation converts the
-   * String to a {@link Utf8}. Some Encoder implementations
-   * may want to do something different as a performance optimization.
+   * String to a {@link Utf8}. Some Encoder implementations may want to do
+   * something different as a performance optimization.
    *
    * @throws AvroTypeException If this is a stateful writer and a char-string is
    *                           not expected
@@ -116,9 +116,9 @@ public abstract class Encoder implements Flushable {
   }
 
   /**
-   * Write a Unicode character string. If the CharSequence is an
-   * {@link Utf8} it writes this directly, otherwise the
-   * CharSequence is converted to a String via toString() and written.
+   * Write a Unicode character string. If the CharSequence is an {@link Utf8} it
+   * writes this directly, otherwise the CharSequence is converted to a String via
+   * toString() and written.
    *
    * @throws AvroTypeException If this is a stateful writer and a char-string is
    *                           not expected

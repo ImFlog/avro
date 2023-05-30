@@ -35,33 +35,44 @@ public class TestSchemaValidation {
 
       new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.INT_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.INT_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.LONG_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.INT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.LONG_SCHEMA),
 
       // Avro spec says INT/LONG can be promoted to FLOAT/DOUBLE.
       // This is arguable as this causes a loss of precision.
-      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.INT_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.LONG_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.INT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.LONG_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_SCHEMA, TestSchemas.LONG_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_SCHEMA, TestSchemas.INT_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_SCHEMA, TestSchemas.FLOAT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_SCHEMA, TestSchemas.INT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_SCHEMA, TestSchemas.FLOAT_SCHEMA),
 
       new TestSchemas.ReaderWriter(TestSchemas.STRING_SCHEMA, TestSchemas.STRING_SCHEMA),
 
       new TestSchemas.ReaderWriter(TestSchemas.BYTES_SCHEMA, TestSchemas.BYTES_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.INT_ARRAY_SCHEMA, TestSchemas.INT_ARRAY_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.LONG_ARRAY_SCHEMA, TestSchemas.INT_ARRAY_SCHEMA),
-      new TestSchemas.ReaderWriter(TestSchemas.INT_MAP_SCHEMA, TestSchemas.INT_MAP_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.LONG_MAP_SCHEMA, TestSchemas.INT_MAP_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_ARRAY_SCHEMA, TestSchemas.INT_ARRAY_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_ARRAY_SCHEMA, TestSchemas.INT_ARRAY_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_MAP_SCHEMA, TestSchemas.INT_MAP_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_MAP_SCHEMA, TestSchemas.INT_MAP_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.ENUM1_AB_SCHEMA, TestSchemas.ENUM1_AB_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.ENUM1_ABC_SCHEMA, TestSchemas.ENUM1_AB_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.ENUM1_AB_SCHEMA, TestSchemas.ENUM1_AB_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.ENUM1_ABC_SCHEMA, TestSchemas.ENUM1_AB_SCHEMA),
 
       // String-to/from-bytes, introduced in Avro 1.7.7
-      new TestSchemas.ReaderWriter(TestSchemas.STRING_SCHEMA, TestSchemas.BYTES_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.BYTES_SCHEMA, TestSchemas.STRING_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.STRING_SCHEMA, TestSchemas.BYTES_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.BYTES_SCHEMA, TestSchemas.STRING_SCHEMA),
 
       // Tests involving unions:
-      new TestSchemas.ReaderWriter(TestSchemas.EMPTY_UNION_SCHEMA, TestSchemas.EMPTY_UNION_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.INT_UNION_SCHEMA, TestSchemas.INT_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.EMPTY_UNION_SCHEMA, TestSchemas.EMPTY_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_UNION_SCHEMA, TestSchemas.INT_UNION_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.INT_STRING_UNION_SCHEMA, TestSchemas.STRING_INT_UNION_SCHEMA),
-      new TestSchemas.ReaderWriter(TestSchemas.INT_UNION_SCHEMA, TestSchemas.EMPTY_UNION_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.LONG_UNION_SCHEMA, TestSchemas.INT_UNION_SCHEMA),
-      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_UNION_SCHEMA, TestSchemas.INT_UNION_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.FLOAT_UNION_SCHEMA, TestSchemas.LONG_UNION_SCHEMA),
-      new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_UNION_SCHEMA, TestSchemas.INT_UNION_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.LONG_UNION_SCHEMA, TestSchemas.EMPTY_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_UNION_SCHEMA, TestSchemas.EMPTY_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_UNION_SCHEMA, TestSchemas.INT_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_UNION_SCHEMA, TestSchemas.INT_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_UNION_SCHEMA, TestSchemas.LONG_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_UNION_SCHEMA, TestSchemas.INT_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_UNION_SCHEMA, TestSchemas.EMPTY_UNION_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_UNION_SCHEMA, TestSchemas.LONG_UNION_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.FLOAT_UNION_SCHEMA, TestSchemas.EMPTY_UNION_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_UNION_SCHEMA, TestSchemas.FLOAT_UNION_SCHEMA),
@@ -75,25 +86,32 @@ public class TestSchemaValidation {
       new TestSchemas.ReaderWriter(TestSchemas.NULL_INT_MAP_UNION_SCHEMA, TestSchemas.INT_MAP_SCHEMA),
 
       // Readers capable of reading all branches of a union are compatible
-      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.INT_FLOAT_UNION_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.INT_LONG_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.INT_FLOAT_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.INT_LONG_UNION_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_SCHEMA, TestSchemas.INT_FLOAT_UNION_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.DOUBLE_SCHEMA, TestSchemas.INT_LONG_FLOAT_DOUBLE_UNION_SCHEMA),
 
       // Special case of singleton unions:
-      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.FLOAT_UNION_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.INT_UNION_SCHEMA, TestSchemas.INT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.FLOAT_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_UNION_SCHEMA, TestSchemas.INT_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.INT_UNION_SCHEMA),
 
       // Tests involving records:
-      new TestSchemas.ReaderWriter(TestSchemas.EMPTY_RECORD1, TestSchemas.EMPTY_RECORD1), new TestSchemas.ReaderWriter(TestSchemas.EMPTY_RECORD1, TestSchemas.A_INT_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.EMPTY_RECORD1, TestSchemas.EMPTY_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.EMPTY_RECORD1, TestSchemas.A_INT_RECORD1),
 
-      new TestSchemas.ReaderWriter(TestSchemas.A_INT_RECORD1, TestSchemas.A_INT_RECORD1), new TestSchemas.ReaderWriter(TestSchemas.A_DINT_RECORD1, TestSchemas.A_INT_RECORD1),
-      new TestSchemas.ReaderWriter(TestSchemas.A_DINT_RECORD1, TestSchemas.A_DINT_RECORD1), new TestSchemas.ReaderWriter(TestSchemas.A_INT_RECORD1, TestSchemas.A_DINT_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_INT_RECORD1, TestSchemas.A_INT_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_DINT_RECORD1, TestSchemas.A_INT_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_DINT_RECORD1, TestSchemas.A_DINT_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_INT_RECORD1, TestSchemas.A_DINT_RECORD1),
 
       new TestSchemas.ReaderWriter(TestSchemas.A_LONG_RECORD1, TestSchemas.A_INT_RECORD1),
 
-      new TestSchemas.ReaderWriter(TestSchemas.A_INT_RECORD1, TestSchemas.A_INT_B_INT_RECORD1), new TestSchemas.ReaderWriter(TestSchemas.A_DINT_RECORD1, TestSchemas.A_INT_B_INT_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_INT_RECORD1, TestSchemas.A_INT_B_INT_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_DINT_RECORD1, TestSchemas.A_INT_B_INT_RECORD1),
 
-      new TestSchemas.ReaderWriter(TestSchemas.A_INT_B_DINT_RECORD1, TestSchemas.A_INT_RECORD1), new TestSchemas.ReaderWriter(TestSchemas.A_DINT_B_DINT_RECORD1, TestSchemas.EMPTY_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_INT_B_DINT_RECORD1, TestSchemas.A_INT_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_DINT_B_DINT_RECORD1, TestSchemas.EMPTY_RECORD1),
       new TestSchemas.ReaderWriter(TestSchemas.A_DINT_B_DINT_RECORD1, TestSchemas.A_INT_RECORD1),
       new TestSchemas.ReaderWriter(TestSchemas.A_INT_B_INT_RECORD1, TestSchemas.A_DINT_B_DINT_RECORD1),
 
@@ -112,39 +130,50 @@ public class TestSchemaValidation {
 
   /** Collection of reader/writer schema pair that are incompatible. */
   public static final List<TestSchemas.ReaderWriter> INCOMPATIBLE_READER_WRITER_TEST_CASES = TestSchemas.list(
-      new TestSchemas.ReaderWriter(TestSchemas.NULL_SCHEMA, TestSchemas.INT_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.NULL_SCHEMA, TestSchemas.LONG_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.NULL_SCHEMA, TestSchemas.INT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.NULL_SCHEMA, TestSchemas.LONG_SCHEMA),
 
       new TestSchemas.ReaderWriter(TestSchemas.BOOLEAN_SCHEMA, TestSchemas.INT_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.NULL_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.BOOLEAN_SCHEMA),
-      new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.LONG_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.FLOAT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.NULL_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.BOOLEAN_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.LONG_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.FLOAT_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.DOUBLE_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.FLOAT_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.DOUBLE_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.FLOAT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.DOUBLE_SCHEMA),
 
       new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.DOUBLE_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.STRING_SCHEMA, TestSchemas.BOOLEAN_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.STRING_SCHEMA, TestSchemas.INT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.STRING_SCHEMA, TestSchemas.BOOLEAN_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.STRING_SCHEMA, TestSchemas.INT_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.BYTES_SCHEMA, TestSchemas.NULL_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.BYTES_SCHEMA, TestSchemas.INT_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.BYTES_SCHEMA, TestSchemas.NULL_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.BYTES_SCHEMA, TestSchemas.INT_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.INT_ARRAY_SCHEMA, TestSchemas.LONG_ARRAY_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.INT_MAP_SCHEMA, TestSchemas.INT_ARRAY_SCHEMA),
-      new TestSchemas.ReaderWriter(TestSchemas.INT_ARRAY_SCHEMA, TestSchemas.INT_MAP_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.INT_MAP_SCHEMA, TestSchemas.LONG_MAP_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_ARRAY_SCHEMA, TestSchemas.LONG_ARRAY_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_MAP_SCHEMA, TestSchemas.INT_ARRAY_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_ARRAY_SCHEMA, TestSchemas.INT_MAP_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_MAP_SCHEMA, TestSchemas.LONG_MAP_SCHEMA),
 
       // new ReaderWriter(ENUM1_AB_SCHEMA, ENUM1_ABC_SCHEMA),
       // new ReaderWriter(ENUM1_BC_SCHEMA, ENUM1_ABC_SCHEMA),
 
-      new TestSchemas.ReaderWriter(TestSchemas.ENUM1_AB_SCHEMA, TestSchemas.ENUM2_AB_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.ENUM2_AB_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.ENUM1_AB_SCHEMA, TestSchemas.ENUM2_AB_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.ENUM2_AB_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.ENUM2_AB_SCHEMA, TestSchemas.INT_SCHEMA),
 
       // Tests involving unions:
       new TestSchemas.ReaderWriter(TestSchemas.INT_UNION_SCHEMA, TestSchemas.INT_STRING_UNION_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.STRING_UNION_SCHEMA, TestSchemas.INT_STRING_UNION_SCHEMA),
       new TestSchemas.ReaderWriter(TestSchemas.FLOAT_SCHEMA, TestSchemas.INT_LONG_FLOAT_DOUBLE_UNION_SCHEMA),
-      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.INT_FLOAT_UNION_SCHEMA), new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.INT_FLOAT_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.LONG_SCHEMA, TestSchemas.INT_FLOAT_UNION_SCHEMA),
+      new TestSchemas.ReaderWriter(TestSchemas.INT_SCHEMA, TestSchemas.INT_FLOAT_UNION_SCHEMA),
 
       // new ReaderWriter(EMPTY_RECORD2, EMPTY_RECORD1),
-      new TestSchemas.ReaderWriter(TestSchemas.A_INT_RECORD1, TestSchemas.EMPTY_RECORD1), new TestSchemas.ReaderWriter(TestSchemas.A_INT_B_DINT_RECORD1, TestSchemas.EMPTY_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_INT_RECORD1, TestSchemas.EMPTY_RECORD1),
+      new TestSchemas.ReaderWriter(TestSchemas.A_INT_B_DINT_RECORD1, TestSchemas.EMPTY_RECORD1),
 
       // new ReaderWriter(INT_LIST_RECORD, LONG_LIST_RECORD),
 

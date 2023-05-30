@@ -42,9 +42,9 @@ public class TestBinaryMessageEncoding {
 
   private static final GenericRecordBuilder V1_BUILDER = new GenericRecordBuilder(SCHEMA_V1);
 
-  private static final List<GenericData.Record> V1_RECORDS = Arrays.asList(V1_BUILDER.set("id", 1).set("msg", "m-1").build(),
-      V1_BUILDER.set("id", 2).set("msg", "m-2").build(), V1_BUILDER.set("id", 4).set("msg", "m-4").build(),
-      V1_BUILDER.set("id", 6).set("msg", "m-6").build());
+  private static final List<GenericData.Record> V1_RECORDS = Arrays.asList(
+      V1_BUILDER.set("id", 1).set("msg", "m-1").build(), V1_BUILDER.set("id", 2).set("msg", "m-2").build(),
+      V1_BUILDER.set("id", 4).set("msg", "m-4").build(), V1_BUILDER.set("id", 6).set("msg", "m-6").build());
 
   private static final Schema SCHEMA_V2 = SchemaBuilder.record("TestRecord").fields().requiredLong("id").name("message")
       .aliases("msg").type().optional().stringType().optionalDouble("data").endRecord();
@@ -136,7 +136,8 @@ public class TestBinaryMessageEncoding {
 
     SchemaStore.Cache schemaCache = new SchemaStore.Cache();
     schemaCache.addSchema(SCHEMA_V1);
-    BinaryMessageDecoder<GenericData.Record> v2Decoder = new BinaryMessageDecoder<>(GenericData.get(), SCHEMA_V2, schemaCache);
+    BinaryMessageDecoder<GenericData.Record> v2Decoder = new BinaryMessageDecoder<>(GenericData.get(), SCHEMA_V2,
+        schemaCache);
 
     ByteBuffer v1Buffer = v1Encoder.encode(V1_RECORDS.get(2));
 
@@ -153,7 +154,8 @@ public class TestBinaryMessageEncoding {
     schemaCache.addSchema(SCHEMA_V1);
     // The null readSchema should not throw an NPE, but trigger the
     // BinaryMessageEncoder to use the write schema as read schema
-    BinaryMessageDecoder<GenericData.Record> genericDecoder = new BinaryMessageDecoder<>(GenericData.get(), null, schemaCache);
+    BinaryMessageDecoder<GenericData.Record> genericDecoder = new BinaryMessageDecoder<>(GenericData.get(), null,
+        schemaCache);
 
     ByteBuffer v1Buffer = v1Encoder.encode(V1_RECORDS.get(2));
 

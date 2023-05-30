@@ -54,6 +54,7 @@ public class TestSchemaCompatibilityNameMismatch {
 
   @Test
   public void testNameMismatchSchemas() throws Exception {
-    validateIncompatibleSchemas(reader, writer, SchemaCompatibility.SchemaIncompatibilityType.NAME_MISMATCH, details, location);
+    validateIncompatibleSchemas(reader, writer, SchemaCompatibility.SchemaIncompatibilityType.NAME_MISMATCH, details,
+        location);
   }
 }

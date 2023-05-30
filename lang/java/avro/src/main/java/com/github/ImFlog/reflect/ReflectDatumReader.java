@@ -40,8 +40,7 @@ import com.github.ImFlog.Schema.Field;
 import com.github.ImFlog.generic.IndexedRecord;
 
 /**
- * {@link DatumReader DatumReader} for existing classes via
- * Java reflection.
+ * {@link DatumReader DatumReader} for existing classes via Java reflection.
  */
 public class ReflectDatumReader<T> extends SpecificDatumReader<T> {
   public ReflectDatumReader() {

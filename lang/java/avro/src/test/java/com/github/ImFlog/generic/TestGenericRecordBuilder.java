@@ -101,7 +101,8 @@ public class TestGenericRecordBuilder {
     fields.add(new Schema.Field("intField", Schema.create(Schema.Type.INT), null, null));
     fields.add(new Schema.Field("anArray", Schema.createArray(Schema.create(Schema.Type.STRING)), null, null));
     fields.add(new Schema.Field("optionalInt",
-        Schema.createUnion(Arrays.asList(Schema.create(Schema.Type.NULL), Schema.create(Schema.Type.INT))), null, Schema.NULL_VALUE));
+        Schema.createUnion(Arrays.asList(Schema.create(Schema.Type.NULL), Schema.create(Schema.Type.INT))), null,
+        Schema.NULL_VALUE));
     Schema schema = Schema.createRecord("Foo", "test", "mytest", false);
     schema.setFields(fields);
     return schema;

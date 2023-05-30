@@ -39,7 +39,7 @@ public class TestResolvingIO {
   protected final String sRdrCls;
 
   public TestResolvingIO(TestValidatingIO.Encoding encoding, int skipLevel, String jsonWriterSchema, String writerCalls,
-                         String jsonReaderSchema, String readerCalls) {
+      String jsonReaderSchema, String readerCalls) {
     this.eEnc = encoding;
     this.iSkipL = skipLevel;
     this.sJsWrtSchm = jsonWriterSchema;
@@ -60,15 +60,15 @@ public class TestResolvingIO {
     performTest(eEnc, iSkipL, sJsWrtSchm, sWrtCls, sJsRdrSchm, sRdrCls);
   }
 
-  private void performTest(TestValidatingIO.Encoding encoding, int skipLevel, String jsonWriterSchema, String writerCalls,
-                           String jsonReaderSchema, String readerCalls) throws IOException {
+  private void performTest(TestValidatingIO.Encoding encoding, int skipLevel, String jsonWriterSchema,
+      String writerCalls, String jsonReaderSchema, String readerCalls) throws IOException {
     for (int i = 0; i < COUNT; i++) {
       testOnce(jsonWriterSchema, writerCalls, jsonReaderSchema, readerCalls, encoding, skipLevel);
     }
   }
 
   private void testOnce(String jsonWriterSchema, String writerCalls, String jsonReaderSchema, String readerCalls,
-                        TestValidatingIO.Encoding encoding, int skipLevel) throws IOException {
+      TestValidatingIO.Encoding encoding, int skipLevel) throws IOException {
     Object[] values = TestValidatingIO.randomValues(writerCalls);
     Object[] expected = TestValidatingIO.randomValues(readerCalls);
 
@@ -79,8 +79,8 @@ public class TestResolvingIO {
     check(writerSchema, readerSchema, bytes, readerCalls, expected, encoding, skipLevel);
   }
 
-  static void check(Schema wsc, Schema rsc, byte[] bytes, String calls, Object[] values, TestValidatingIO.Encoding encoding,
-      int skipLevel) throws IOException {
+  static void check(Schema wsc, Schema rsc, byte[] bytes, String calls, Object[] values,
+      TestValidatingIO.Encoding encoding, int skipLevel) throws IOException {
     // TestValidatingIO.dump(bytes);
     // System.out.println(new String(bytes, "UTF-8"));
     Decoder bvi = null;
@@ -104,7 +104,8 @@ public class TestResolvingIO {
     return Arrays.asList(TestValidatingIO.convertTo2dArray(encodings, skipLevels, testSchemas()));
   }
 
-  static Object[][] encodings = new Object[][] { { TestValidatingIO.Encoding.BINARY }, { TestValidatingIO.Encoding.BLOCKING_BINARY }, { TestValidatingIO.Encoding.JSON } };
+  static Object[][] encodings = new Object[][] { { TestValidatingIO.Encoding.BINARY },
+      { TestValidatingIO.Encoding.BLOCKING_BINARY }, { TestValidatingIO.Encoding.JSON } };
   static Object[][] skipLevels = new Object[][] { { -1 }, { 0 }, { 1 }, { 2 } };
 
   private static Object[][] testSchemas() {

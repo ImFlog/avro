@@ -92,6 +92,7 @@ public class TestSchemaCompatibilityTypeMismatch {
 
   @Test
   public void testTypeMismatchSchemas() throws Exception {
-    validateIncompatibleSchemas(reader, writer, SchemaCompatibility.SchemaIncompatibilityType.TYPE_MISMATCH, details, location);
+    validateIncompatibleSchemas(reader, writer, SchemaCompatibility.SchemaIncompatibilityType.TYPE_MISMATCH, details,
+        location);
   }
 }

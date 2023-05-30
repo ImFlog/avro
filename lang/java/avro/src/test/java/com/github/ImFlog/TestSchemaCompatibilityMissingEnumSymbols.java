@@ -58,6 +58,7 @@ public class TestSchemaCompatibilityMissingEnumSymbols {
 
   @Test
   public void testTypeMismatchSchemas() throws Exception {
-    validateIncompatibleSchemas(reader, writer, SchemaCompatibility.SchemaIncompatibilityType.MISSING_ENUM_SYMBOLS, details, location);
+    validateIncompatibleSchemas(reader, writer, SchemaCompatibility.SchemaIncompatibilityType.MISSING_ENUM_SYMBOLS,
+        details, location);
   }
 }

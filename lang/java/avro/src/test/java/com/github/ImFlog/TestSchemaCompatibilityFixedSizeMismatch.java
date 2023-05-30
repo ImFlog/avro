@@ -54,6 +54,7 @@ public class TestSchemaCompatibilityFixedSizeMismatch {
 
   @Test
   public void testFixedSizeMismatchSchemas() throws Exception {
-    validateIncompatibleSchemas(reader, writer, SchemaCompatibility.SchemaIncompatibilityType.FIXED_SIZE_MISMATCH, details, location);
+    validateIncompatibleSchemas(reader, writer, SchemaCompatibility.SchemaIncompatibilityType.FIXED_SIZE_MISMATCH,
+        details, location);
   }
 }

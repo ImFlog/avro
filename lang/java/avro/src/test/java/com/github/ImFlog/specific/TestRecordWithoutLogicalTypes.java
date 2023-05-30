@@ -16,8 +16,7 @@ import com.github.ImFlog.message.BinaryMessageEncoder;
 
 @SuppressWarnings("all")
 @AvroGenerated
-public class TestRecordWithoutLogicalTypes extends SpecificRecordBase
-    implements SpecificRecord {
+public class TestRecordWithoutLogicalTypes extends SpecificRecordBase implements SpecificRecord {
   public static final Schema SCHEMA$ = new Schema.Parser().parse(
       "{\"type\":\"record\",\"name\":\"TestRecordWithoutLogicalTypes\",\"namespace\":\"org.apache.avro.specific\",\"fields\":[{\"name\":\"b\",\"type\":\"boolean\"},{\"name\":\"i32\",\"type\":\"int\"},{\"name\":\"i64\",\"type\":\"long\"},{\"name\":\"f32\",\"type\":\"float\"},{\"name\":\"f64\",\"type\":\"double\"},{\"name\":\"s\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"d\",\"type\":{\"type\":\"int\",\"logicalType\":\"date\"}},{\"name\":\"t\",\"type\":{\"type\":\"int\",\"logicalType\":\"time-millis\"}},{\"name\":\"ts\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}},{\"name\":\"dec\",\"type\":{\"type\":\"bytes\",\"logicalType\":\"decimal\",\"precision\":9,\"scale\":2}}]}");
 

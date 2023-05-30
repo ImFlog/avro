@@ -26,8 +26,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Declares the size of implementations of
- * {@link GenericFixed GenericFixed}.
+ * Declares the size of implementations of {@link GenericFixed GenericFixed}.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })

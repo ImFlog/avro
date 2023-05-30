@@ -28,12 +28,11 @@ import com.github.ImFlog.io.DatumWriter;
 import com.github.ImFlog.message.BinaryMessageDecoder;
 import com.github.ImFlog.message.BinaryMessageEncoder;
 import com.github.ImFlog.message.SchemaStore;
-import com.github.ImFlog.specific.*;
+
 import com.github.ImFlog.specific.SpecificData;
 
 @AvroGenerated
-public class FooBarSpecificRecord extends SpecificRecordBase
-    implements SpecificRecord {
+public class FooBarSpecificRecord extends SpecificRecordBase implements SpecificRecord {
   private static final long serialVersionUID = 1031933828916876443L;
   public static final Schema SCHEMA$ = new Schema.Parser().parse(
       "{\"type\":\"record\",\"name\":\"FooBarSpecificRecord\",\"namespace\":\"org.apache.avro\",\"fields\":[{\"name\":\"id\",\"type\":\"int\"},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"nicknames\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}},{\"name\":\"relatedids\",\"type\":{\"type\":\"array\",\"items\":\"int\"}},{\"name\":\"typeEnum\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"TypeEnum\",\"symbols\":[\"a\",\"b\",\"c\"]}],\"default\":null}]}");
@@ -283,8 +282,7 @@ public class FooBarSpecificRecord extends SpecificRecordBase
    * @param other The existing builder to copy.
    * @return A new FooBarSpecificRecord RecordBuilder
    */
-  public static FooBarSpecificRecord.Builder newBuilder(
-      FooBarSpecificRecord.Builder other) {
+  public static FooBarSpecificRecord.Builder newBuilder(FooBarSpecificRecord.Builder other) {
     if (other == null) {
       return new FooBarSpecificRecord.Builder();
     } else {

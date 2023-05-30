@@ -38,7 +38,8 @@ public class RecordBuilderBaseTest {
   @BeforeAll()
   public static void setUpBeforeClass() {
     primitives = new HashSet<>(Arrays.asList(Schema.Type.values()));
-    primitives.removeAll(Arrays.asList(Schema.Type.RECORD, Schema.Type.ENUM, Schema.Type.ARRAY, Schema.Type.MAP, Schema.Type.UNION, Schema.Type.FIXED));
+    primitives.removeAll(Arrays.asList(Schema.Type.RECORD, Schema.Type.ENUM, Schema.Type.ARRAY, Schema.Type.MAP,
+        Schema.Type.UNION, Schema.Type.FIXED));
 
     nonNullPrimitives = new HashSet<>(primitives);
     nonNullPrimitives.remove(Schema.Type.NULL);
@@ -62,7 +63,8 @@ public class RecordBuilderBaseTest {
   @Test
   void isValidValueWithNullField() {
     // Verify that null is a valid value for null fields:
-    assertTrue(RecordBuilderBase.isValidValue(new Schema.Field("f", Schema.create(Schema.Type.NULL), null, null), null));
+    assertTrue(
+        RecordBuilderBase.isValidValue(new Schema.Field("f", Schema.create(Schema.Type.NULL), null, null), null));
   }
 
   @Test
@@ -75,7 +77,8 @@ public class RecordBuilderBaseTest {
     assertFalse(RecordBuilderBase.isValidValue(new Schema.Field("f", unionWithoutNull, null, null), null));
 
     // Verify that null values are valid for a union with a null type:
-    Schema unionWithNull = Schema.createUnion(Arrays.asList(Schema.create(Schema.Type.STRING), Schema.create(Schema.Type.NULL)));
+    Schema unionWithNull = Schema
+        .createUnion(Arrays.asList(Schema.create(Schema.Type.STRING), Schema.create(Schema.Type.NULL)));
 
     assertTrue(RecordBuilderBase.isValidValue(new Schema.Field("f", unionWithNull, null, null), new Object()));
     assertTrue(RecordBuilderBase.isValidValue(new Schema.Field("f", unionWithNull, null, null), null));

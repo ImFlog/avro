@@ -31,8 +31,8 @@ import com.github.ImFlog.Resolver.ErrorAction.ErrorType;
  * Encapsulate schema-resolution logic in an easy-to-consume representation. See
  * {@link #resolve} and also the separate document entitled
  * <tt>refactoring-resolution</tt> for more information. It might also be
- * helpful to study {@link ResolvingGrammarGenerator}
- * as an example of how to use this class.
+ * helpful to study {@link ResolvingGrammarGenerator} as an example of how to
+ * use this class.
  */
 public class Resolver {
   /**

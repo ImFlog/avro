@@ -28,8 +28,7 @@ import java.io.IOException;
  * An implementation of {@linkplain Syncable} which writes to a file. An
  * instance of this class can be used with {@linkplain DataFileWriter} to
  * guarantee that Avro Container Files are persisted to disk on supported
- * platforms using the {@linkplain DataFileWriter#fSync()}
- * method.
+ * platforms using the {@linkplain DataFileWriter#fSync()} method.
  *
  * @see FileOutputStream
  */

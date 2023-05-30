@@ -32,8 +32,7 @@ import com.github.ImFlog.io.Encoder;
 import com.github.ImFlog.path.LocationStep;
 
 /**
- * {@link DatumWriter DatumWriter} for generated Java
- * classes.
+ * {@link DatumWriter DatumWriter} for generated Java classes.
  */
 public class SpecificDatumWriter<T> extends GenericDatumWriter<T> {
   public SpecificDatumWriter() {

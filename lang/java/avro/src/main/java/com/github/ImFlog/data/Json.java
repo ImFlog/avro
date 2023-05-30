@@ -123,8 +123,8 @@ public class Json {
   }
 
   /**
-   * Converts an instance of the object model described in
-   * {@link JsonProperties} to a JSON string.
+   * Converts an instance of the object model described in {@link JsonProperties}
+   * to a JSON string.
    */
   public static String toString(Object datum) {
     return JacksonUtils.toJsonNode(datum).toString();

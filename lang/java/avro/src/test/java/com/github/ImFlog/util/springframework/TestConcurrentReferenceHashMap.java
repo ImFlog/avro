@@ -649,7 +649,8 @@ class TestConcurrentReferenceHashMap {
 
     private final LinkedList<MockReference<K, V>> queue;
 
-    public MockReference(ConcurrentReferenceHashMap.Entry<K, V> entry, int hash, ConcurrentReferenceHashMap.Reference<K, V> next, LinkedList<MockReference<K, V>> queue) {
+    public MockReference(ConcurrentReferenceHashMap.Entry<K, V> entry, int hash,
+        ConcurrentReferenceHashMap.Reference<K, V> next, LinkedList<MockReference<K, V>> queue) {
       this.hash = hash;
       this.entry = entry;
       this.next = next;

@@ -156,7 +156,8 @@ public class TestGenericData {
 
   @Test
   public void testMapKeyEqualsStringAndUtf8Compatibility() {
-    Schema.Field myMapField = new Schema.Field("my_map", Schema.createMap(Schema.create(Schema.Type.STRING)), null, null);
+    Schema.Field myMapField = new Schema.Field("my_map", Schema.createMap(Schema.create(Schema.Type.STRING)), null,
+        null);
     Schema schema = Schema.createRecord("my_record", "doc", "mytest", false);
     schema.setFields(Arrays.asList(myMapField));
     GenericRecord r0 = new GenericData.Record(schema);
@@ -176,7 +177,8 @@ public class TestGenericData {
 
   @Test
   public void testMapValuesEqualsStringAndUtf8Compatibility() {
-    Schema.Field myMapField = new Schema.Field("my_map", Schema.createMap(Schema.create(Schema.Type.STRING)), null, null);
+    Schema.Field myMapField = new Schema.Field("my_map", Schema.createMap(Schema.create(Schema.Type.STRING)), null,
+        null);
     Schema schema = Schema.createRecord("my_record", "doc", "mytest", false);
     schema.setFields(Arrays.asList(myMapField));
     GenericRecord r0 = new GenericData.Record(schema);
@@ -196,7 +198,8 @@ public class TestGenericData {
 
   @Test
   public void testArrayValuesEqualsStringAndUtf8Compatibility() {
-    Schema.Field myArrayField = new Schema.Field("my_array", Schema.createArray(Schema.create(Schema.Type.STRING)), null, null);
+    Schema.Field myArrayField = new Schema.Field("my_array", Schema.createArray(Schema.create(Schema.Type.STRING)),
+        null, null);
     Schema schema = Schema.createRecord("my_record", "doc", "mytest", false);
     schema.setFields(Arrays.asList(myArrayField));
     GenericRecord r0 = new GenericData.Record(schema);
@@ -386,8 +389,8 @@ public class TestGenericData {
   @Test
   void toStringIsJson() throws JsonParseException, IOException {
     Schema.Field stringField = new Schema.Field("string", Schema.create(Schema.Type.STRING), null, null);
-    Schema.Field enumField = new Schema.Field("enum", Schema.createEnum("my_enum", "doc", null, Arrays.asList("a", "b", "c")), null,
-        null);
+    Schema.Field enumField = new Schema.Field("enum",
+        Schema.createEnum("my_enum", "doc", null, Arrays.asList("a", "b", "c")), null, null);
     Schema schema = Schema.createRecord("my_record", "doc", "mytest", false);
     schema.setFields(Arrays.asList(stringField, enumField));
 

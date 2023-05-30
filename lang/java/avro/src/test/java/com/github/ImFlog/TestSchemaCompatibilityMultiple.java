@@ -96,11 +96,16 @@ public class TestSchemaCompatibilityMultiple {
         // EOR
         .endRecord();
 
-    List<SchemaCompatibility.SchemaIncompatibilityType> types = Arrays.asList(SchemaCompatibility.SchemaIncompatibilityType.MISSING_ENUM_SYMBOLS,
-        SchemaCompatibility.SchemaIncompatibilityType.NAME_MISMATCH, SchemaCompatibility.SchemaIncompatibilityType.TYPE_MISMATCH,
-        SchemaCompatibility.SchemaIncompatibilityType.READER_FIELD_MISSING_DEFAULT_VALUE, SchemaCompatibility.SchemaIncompatibilityType.FIXED_SIZE_MISMATCH,
-        SchemaCompatibility.SchemaIncompatibilityType.MISSING_UNION_BRANCH, SchemaCompatibility.SchemaIncompatibilityType.MISSING_UNION_BRANCH,
-        SchemaCompatibility.SchemaIncompatibilityType.MISSING_UNION_BRANCH, SchemaCompatibility.SchemaIncompatibilityType.TYPE_MISMATCH);
+    List<SchemaCompatibility.SchemaIncompatibilityType> types = Arrays.asList(
+        SchemaCompatibility.SchemaIncompatibilityType.MISSING_ENUM_SYMBOLS,
+        SchemaCompatibility.SchemaIncompatibilityType.NAME_MISMATCH,
+        SchemaCompatibility.SchemaIncompatibilityType.TYPE_MISMATCH,
+        SchemaCompatibility.SchemaIncompatibilityType.READER_FIELD_MISSING_DEFAULT_VALUE,
+        SchemaCompatibility.SchemaIncompatibilityType.FIXED_SIZE_MISMATCH,
+        SchemaCompatibility.SchemaIncompatibilityType.MISSING_UNION_BRANCH,
+        SchemaCompatibility.SchemaIncompatibilityType.MISSING_UNION_BRANCH,
+        SchemaCompatibility.SchemaIncompatibilityType.MISSING_UNION_BRANCH,
+        SchemaCompatibility.SchemaIncompatibilityType.TYPE_MISMATCH);
     List<String> details = Arrays.asList("[B, D]", "expected: check_enum_name_type_ERR",
         "reader type: STRING not compatible with writer type: LONG", "extra_no_default_field", "expected: 8, found: 4",
         "reader union lacking writer type: DOUBLE", "reader union lacking writer type: STRING",

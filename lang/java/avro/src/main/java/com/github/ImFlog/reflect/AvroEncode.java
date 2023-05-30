@@ -26,10 +26,10 @@ import java.lang.annotation.Target;
 
 /**
  * Expert: Fields with this annotation are encoded using the given custom
- * encoder. This annotation overrides {@link Stringable
- * Stringable} and {@link Nullable Nullable}. Since no
- * validation is performed, invalid custom encodings may result in an unreadable
- * file. Use of {@link ValidatingEncoder} is recommended.
+ * encoder. This annotation overrides {@link Stringable Stringable} and
+ * {@link Nullable Nullable}. Since no validation is performed, invalid custom
+ * encodings may result in an unreadable file. Use of {@link ValidatingEncoder}
+ * is recommended.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

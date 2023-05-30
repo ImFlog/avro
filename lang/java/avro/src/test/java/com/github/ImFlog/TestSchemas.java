@@ -122,22 +122,25 @@ public class TestSchemas {
     EMPTY_RECORD2.setFields(Collections.emptyList());
     A_INT_RECORD1.setFields(list(new Schema.Field("a", INT_SCHEMA, null, null)));
     A_LONG_RECORD1.setFields(list(new Schema.Field("a", LONG_SCHEMA, null, null)));
-    A_INT_B_INT_RECORD1.setFields(list(new Schema.Field("a", INT_SCHEMA, null, null), new Schema.Field("b", INT_SCHEMA, null, null)));
+    A_INT_B_INT_RECORD1
+        .setFields(list(new Schema.Field("a", INT_SCHEMA, null, null), new Schema.Field("b", INT_SCHEMA, null, null)));
     A_DINT_RECORD1.setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0)));
-    A_INT_B_DINT_RECORD1.setFields(list(new Schema.Field("a", INT_SCHEMA, null, null), new Schema.Field("b", INT_SCHEMA, null, 0)));
-    A_DINT_B_DINT_RECORD1.setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", INT_SCHEMA, null, 0)));
+    A_INT_B_DINT_RECORD1
+        .setFields(list(new Schema.Field("a", INT_SCHEMA, null, null), new Schema.Field("b", INT_SCHEMA, null, 0)));
+    A_DINT_B_DINT_RECORD1
+        .setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", INT_SCHEMA, null, 0)));
     A_DINT_B_DFIXED_4_BYTES_RECORD1
         .setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", FIXED_4_BYTES, null, null)));
     A_DINT_B_DFIXED_8_BYTES_RECORD1
         .setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", FIXED_8_BYTES, null, null)));
-    A_DINT_B_DINT_STRING_UNION_RECORD1
-        .setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", INT_STRING_UNION_SCHEMA, null, 0)));
+    A_DINT_B_DINT_STRING_UNION_RECORD1.setFields(
+        list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", INT_STRING_UNION_SCHEMA, null, 0)));
     A_DINT_B_DINT_UNION_RECORD1
         .setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", INT_UNION_SCHEMA, null, 0)));
-    A_DINT_B_DENUM_1_RECORD1
-        .setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", ENUM1_AB_SCHEMA, null, null)));
-    A_DINT_B_DENUM_2_RECORD1
-        .setFields(list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", ENUM2_AB_SCHEMA, null, null)));
+    A_DINT_B_DENUM_1_RECORD1.setFields(
+        list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", ENUM1_AB_SCHEMA, null, null)));
+    A_DINT_B_DENUM_2_RECORD1.setFields(
+        list(new Schema.Field("a", INT_SCHEMA, null, 0), new Schema.Field("b", ENUM2_AB_SCHEMA, null, null)));
 
     NS_INNER_RECORD1.setFields(list(new Schema.Field("a", INT_SCHEMA)));
     NS_INNER_RECORD2.setFields(list(new Schema.Field("a", INT_SCHEMA)));
@@ -155,10 +158,10 @@ public class TestSchemas {
   static final Schema INT_LIST_RECORD = Schema.createRecord("List", null, null, false);
   static final Schema LONG_LIST_RECORD = Schema.createRecord("List", null, null, false);
   static {
-    INT_LIST_RECORD
-        .setFields(list(new Schema.Field("head", INT_SCHEMA, null, null), new Schema.Field("tail", INT_LIST_RECORD, null, null)));
-    LONG_LIST_RECORD
-        .setFields(list(new Schema.Field("head", LONG_SCHEMA, null, null), new Schema.Field("tail", LONG_LIST_RECORD, null, null)));
+    INT_LIST_RECORD.setFields(
+        list(new Schema.Field("head", INT_SCHEMA, null, null), new Schema.Field("tail", INT_LIST_RECORD, null, null)));
+    LONG_LIST_RECORD.setFields(list(new Schema.Field("head", LONG_SCHEMA, null, null),
+        new Schema.Field("tail", LONG_LIST_RECORD, null, null)));
   }
 
   // -----------------------------------------------------------------------------------------------

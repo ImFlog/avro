@@ -64,7 +64,7 @@ public class TestSchemaCommons {
     DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
     GenericDatumReader<GenericRecord> datumReader = new GenericDatumReader<>(schema);
     try (DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(data, datumReader);
-         DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<>(datumWriter)) {
+        DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<>(datumWriter)) {
       dataFileWriter.create(schema, copyData);
       GenericRecord record = null;
       int counter = 0;

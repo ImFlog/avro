@@ -174,9 +174,9 @@ public class SpecificData extends GenericData {
   /**
    * If the given class is assignable to {@link SpecificRecordBase}, this method
    * returns the SpecificData instance from the field {@code MODEL$}, in order to
-   * get the correct {@link Conversion} instances for the class.
-   * Falls back to the default instance {@link SpecificData#get()} for other
-   * classes or if the field is not found.
+   * get the correct {@link Conversion} instances for the class. Falls back to the
+   * default instance {@link SpecificData#get()} for other classes or if the field
+   * is not found.
    *
    * @param c   A class
    * @param <T> .
@@ -483,8 +483,8 @@ public class SpecificData extends GenericData {
 
   /**
    * Create an instance of a class. If the class implements
-   * {@link SchemaConstructable}, call a constructor with a
-   * {@link Schema} parameter, otherwise use a no-arg constructor.
+   * {@link SchemaConstructable}, call a constructor with a {@link Schema}
+   * parameter, otherwise use a no-arg constructor.
    */
   @SuppressWarnings("unchecked")
   public static Object newInstance(Class c, Schema s) {

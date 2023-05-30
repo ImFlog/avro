@@ -415,7 +415,8 @@ public class TestReadingWritingDataInEvolvedSchemas {
     return outStream.toByteArray();
   }
 
-  private GenericData.Record decodeGenericBlob(Schema expectedSchema, Schema schemaOfBlob, byte[] blob) throws IOException {
+  private GenericData.Record decodeGenericBlob(Schema expectedSchema, Schema schemaOfBlob, byte[] blob)
+      throws IOException {
     if (blob == null) {
       return null;
     }
