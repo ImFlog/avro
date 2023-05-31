@@ -47,21 +47,23 @@ $ head /tmp/namespaces.avpr
 The `idl` tool can also process input to and from _stdin_ and _stdout_. See `idl --help` for full usage information.
 
 A Maven plugin is also provided to compile .avdl files. To use it, add something like the following to your pom.xml:
+
 ```xml
+
 <build>
-  <plugins>
-    <plugin>
-      <groupId>com.github.ImFlog</groupId>
-      <artifactId>avro-maven-plugin</artifactId>
-      <executions>
-        <execution>
-          <goals>
-            <goal>idl-protocol</goal>
-          </goals>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
+    <plugins>
+        <plugin>
+            <groupId>com.github.imflogcom.github.imflog</groupId>
+            <artifactId>avro-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>idl-protocol</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
 </build>
 ```
 

@@ -91,7 +91,7 @@
               <pluginExecutions>
                 <pluginExecution>
                   <pluginExecutionFilter>
-                    <groupId>com.github.ImFlog</groupId>
+                    <groupId>com.github.imflog</groupId>
                     <artifactId>avro-maven-plugin</artifactId>
                     <versionRange>[${avro.version},)</versionRange>
                     <goals>

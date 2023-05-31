@@ -400,7 +400,7 @@
                     </pluginExecution>
                     <pluginExecution>
                       <pluginExecutionFilter>
-                        <groupId>com.github.ImFlog</groupId>
+                        <groupId>com.github.imflog</groupId>
                         <artifactId>avro-maven-plugin</artifactId>
                         <versionRange>[${project.version},)</versionRange>
                         <goals>

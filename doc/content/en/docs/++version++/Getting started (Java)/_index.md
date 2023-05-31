@@ -36,40 +36,44 @@ Avro implementations for C, C++, C#, Java, PHP, Python, and Ruby can be download
 Alternatively, if you are using Maven, add the following dependency to your POM:
 
 ```xml
+
 <dependency>
-  <groupId>com.github.ImFlog</groupId>
-  <artifactId>avro</artifactId>
-  <version>{{< avro_version >}}</version>
+    <groupId>com.github.imflogcom.github.imflog</groupId>
+    <artifactId>avro</artifactId>
+    <version>{{< avro_version>}}
+    </version>
 </dependency>
 ```
 
 As well as the Avro Maven plugin (for performing code generation):
 
 ```xml
+
 <plugin>
-  <groupId>com.github.ImFlog</groupId>
-  <artifactId>avro-maven-plugin</artifactId>
-  <version>{{< avro_version >}}</version>
-  <executions>
-    <execution>
-      <phase>generate-sources</phase>
-      <goals>
-        <goal>schema</goal>
-      </goals>
-      <configuration>
-        <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
-        <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
-      </configuration>
-    </execution>
-  </executions>
+    <groupId>com.github.imflogcom.github.imflog</groupId>
+    <artifactId>avro-maven-plugin</artifactId>
+    <version>{{< avro_version>}}
+    </version>
+    <executions>
+        <execution>
+            <phase>generate-sources</phase>
+            <goals>
+                <goal>schema</goal>
+            </goals>
+            <configuration>
+                <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
+                <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+            </configuration>
+        </execution>
+    </executions>
 </plugin>
 <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-compiler-plugin</artifactId>
-  <configuration>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<configuration>
     <source>1.8</source>
     <target>1.8</target>
-  </configuration>
+</configuration>
 </plugin>
 ```
       

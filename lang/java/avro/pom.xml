@@ -37,13 +37,13 @@
   <properties>
     <main.basedir>${project.parent.parent.basedir}</main.basedir>
     <osgi.import>
-      !org.apache.avro*,
+      !com.github.imflog*,
       com.fasterxml.jackson*,
       org.xerial.snappy;resolution:=optional,
       sun.misc;resolution:=optional,
       *
     </osgi.import>
-    <osgi.export>org.apache.avro*;version="${project.version}"</osgi.export>
+    <osgi.export>com.github.imflog*;version="${project.version}"</osgi.export>
   </properties>
 
   <build>
@@ -51,7 +51,7 @@
       <resource>
         <directory>../../../share/schemas</directory>
         <includes>
-          <include>org/apache/avro/data/Json.avsc</include>
+          <include>com/github/imflog/avro/data/Json.avsc</include>
         </includes>
       </resource>
     </resources>
@@ -62,7 +62,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Automatic-Module-Name>com.github.ImFlog</Automatic-Module-Name>
+              <Automatic-Module-Name>com.github.imflog</Automatic-Module-Name>
             </manifestEntries>
           </archive>
         </configuration>
@@ -121,7 +121,7 @@
                 <id>interop-generate-null-codec</id>
                 <phase>generate-resources</phase>
                 <configuration>
-                  <mainClass>com.github.ImFlog.avro.util.RandomData</mainClass>
+                  <mainClass>com.github.imflog.avro.util.RandomData</mainClass>
                   <arguments>
                     <argument>../../../share/test/schemas/interop.avsc</argument>
                     <argument>../../../build/interop/data/java.avro</argument>
@@ -136,7 +136,7 @@
                 <id>interop-generate-deflate-codec</id>
                 <phase>generate-resources</phase>
                 <configuration>
-                  <mainClass>com.github.ImFlog.avro.util.RandomData</mainClass>
+                  <mainClass>com.github.imflog.avro.util.RandomData</mainClass>
                   <arguments>
                     <argument>../../../share/test/schemas/interop.avsc</argument>
                     <argument>../../../build/interop/data/java_deflate.avro</argument>
@@ -152,7 +152,7 @@
                 <id>interop-generate-snappy-codec</id>
                 <phase>generate-resources</phase>
                 <configuration>
-                  <mainClass>com.github.ImFlog.avro.util.RandomData</mainClass>
+                  <mainClass>com.github.imflog.avro.util.RandomData</mainClass>
                   <arguments>
                     <argument>../../../share/test/schemas/interop.avsc</argument>
                     <argument>../../../build/interop/data/java_snappy.avro</argument>
@@ -168,7 +168,7 @@
                 <id>interop-generate-bzip2-codec</id>
                 <phase>generate-resources</phase>
                 <configuration>
-                  <mainClass>com.github.ImFlog.avro.util.RandomData</mainClass>
+                  <mainClass>com.github.imflog.avro.util.RandomData</mainClass>
                   <arguments>
                     <argument>../../../share/test/schemas/interop.avsc</argument>
                     <argument>../../../build/interop/data/java_bzip2.avro</argument>
@@ -184,7 +184,7 @@
                 <id>interop-generate-xz-codec</id>
                 <phase>generate-resources</phase>
                 <configuration>
-                  <mainClass>com.github.ImFlog.avro.util.RandomData</mainClass>
+                  <mainClass>com.github.imflog.avro.util.RandomData</mainClass>
                   <arguments>
                     <argument>../../../share/test/schemas/interop.avsc</argument>
                     <argument>../../../build/interop/data/java_xz.avro</argument>
@@ -200,7 +200,7 @@
                 <id>interop-generate-zstandard-codec</id>
                 <phase>generate-resources</phase>
                 <configuration>
-                  <mainClass>com.github.ImFlog.avro.util.RandomData</mainClass>
+                  <mainClass>com.github.imflog.avro.util.RandomData</mainClass>
                   <arguments>
                     <argument>../../../share/test/schemas/interop.avsc</argument>
                     <argument>../../../build/interop/data/java_zstandard.avro</argument>
