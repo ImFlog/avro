@@ -37,13 +37,14 @@
   <properties>
     <main.basedir>${project.parent.parent.basedir}</main.basedir>
     <osgi.import>
-      !org.apache.avro*,
+<!--      !org.apache.avro*,-->
+      !com.github.imflog*,
       com.fasterxml.jackson*,
       org.xerial.snappy;resolution:=optional,
       sun.misc;resolution:=optional,
       *
     </osgi.import>
-    <osgi.export>org.apache.avro*;version="${project.version}"</osgi.export>
+    <osgi.export>com.github.imflog*;version="${project.version}"</osgi.export>
   </properties>
 
   <build>
