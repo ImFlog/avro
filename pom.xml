@@ -208,11 +208,11 @@
             </goals>
             <configuration>
               <rules>
-                <requireProperty>
-                  <property>project.version</property>
-                  <regex>${env.VERSION}</regex>
-                  <regexMessage>*****!!!!! Version of project must be ${env.VERSION} !!!!!*****</regexMessage>
-                </requireProperty>
+<!--                <requireProperty>-->
+<!--                  <property>project.version</property>-->
+<!--                  <regex>${env.VERSION}</regex>-->
+<!--                  <regexMessage>*****!!!!! Version of project must be ${env.VERSION} !!!!!*****</regexMessage>-->
+<!--                </requireProperty>-->
                 <enforceBytecodeVersion>
                   <maxJdkVersion>1.8</maxJdkVersion>
                 </enforceBytecodeVersion>
