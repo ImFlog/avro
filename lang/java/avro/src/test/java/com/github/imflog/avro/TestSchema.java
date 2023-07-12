@@ -17,11 +17,19 @@
  */
 package com.github.imflog.avro;
 
-import com.github.imflog.avro.Schema.*;
+import com.github.imflog.avro.Schema.Field;
+import com.github.imflog.avro.Schema.Type;
 import com.github.imflog.avro.generic.GenericData;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -441,8 +449,8 @@ public class TestSchema {
   @Test
   void unknownTypeAccepted() {
     final String inputSchema = "{\n" + "  \"type\" : \"record\",\n" + "  \"name\" : \"remote\",\n"
-      + "  \"namespace\" : \"ns\",\n" + "  \"fields\" : [ {\n" + "    \"name\" : \"value\",\n"
-      + "    \"type\" : \"T\"\n" + "  } ]\n" + "}";
+        + "  \"namespace\" : \"ns\",\n" + "  \"fields\" : [ {\n" + "    \"name\" : \"value\",\n"
+        + "    \"type\" : \"T\"\n" + "  } ]\n" + "}";
     Schema.Parser parser = new Schema.Parser();
 
     String result = parser.setValidateUnknownTypes(false).parse(inputSchema).toString(true);
@@ -452,8 +460,8 @@ public class TestSchema {
   @Test
   void unknownTypeFailsWithoutFlag() {
     final String inputSchema = "{\n" + "  \"type\" : \"record\",\n" + "  \"name\" : \"remote\",\n"
-      + "  \"namespace\" : \"ns\",\n" + "  \"fields\" : [ {\n" + "    \"name\" : \"value\",\n"
-      + "    \"type\" : \"T\"\n" + "  } ]\n" + "}";
+        + "  \"namespace\" : \"ns\",\n" + "  \"fields\" : [ {\n" + "    \"name\" : \"value\",\n"
+        + "    \"type\" : \"T\"\n" + "  } ]\n" + "}";
     assertThrows(SchemaParseException.class, () -> new Schema.Parser().parse(inputSchema));
   }
 }
