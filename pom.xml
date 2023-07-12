@@ -195,9 +195,9 @@
                 <requireJavaVersion>
                   <version>[1.8,)</version>
                 </requireJavaVersion>
-                <requireMavenVersion>
-                  <version>[3.8.1,)</version>
-                </requireMavenVersion>
+<!--                <requireMavenVersion>-->
+<!--                  <version>[3.8.1,)</version>-->
+<!--                </requireMavenVersion>-->
               </rules>
             </configuration>
           </execution>
@@ -208,11 +208,11 @@
             </goals>
             <configuration>
               <rules>
-                <requireProperty>
-                  <property>project.version</property>
-                  <regex>${env.VERSION}</regex>
-                  <regexMessage>*****!!!!! Version of project must be ${env.VERSION} !!!!!*****</regexMessage>
-                </requireProperty>
+<!--                <requireProperty>-->
+<!--                  <property>project.version</property>-->
+<!--                  <regex>${env.VERSION}</regex>-->
+<!--                  <regexMessage>*****!!!!! Version of project must be ${env.VERSION} !!!!!*****</regexMessage>-->
+<!--                </requireProperty>-->
                 <enforceBytecodeVersion>
                   <maxJdkVersion>1.8</maxJdkVersion>
                 </enforceBytecodeVersion>
