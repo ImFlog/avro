@@ -19,7 +19,7 @@ name: "Publish Snapshot to Maven"
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
       - .github/workflows/java-publish-snapshot.yml
       - lang/java/**
@@ -37,7 +37,7 @@ jobs:
   publish-snapshot:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache Local Maven Repository
         uses: actions/cache@v3

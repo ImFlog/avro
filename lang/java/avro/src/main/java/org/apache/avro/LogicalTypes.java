@@ -18,14 +18,14 @@
 
 package org.apache.avro;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class LogicalTypes {
 
@@ -137,6 +137,9 @@ public class LogicalTypes {
       case DECIMAL:
         logicalType = new Decimal(schema);
         break;
+      case BIG_DECIMAL:
+        logicalType = BIG_DECIMAL_TYPE;
+        break;
       case UUID:
         logicalType = UUID_TYPE;
         break;
@@ -182,6 +185,8 @@ public class LogicalTypes {
   }
 
   private static final String DECIMAL = "decimal";
+  private static final String BIG_DECIMAL = "big-decimal";
+  private static final String DURATION = "duration";
   private static final String UUID = "uuid";
   private static final String DATE = "date";
   private static final String TIME_MILLIS = "time-millis";
@@ -201,10 +206,23 @@ public class LogicalTypes {
     return new Decimal(precision, scale);
   }
 
-  private static final LogicalType UUID_TYPE = new LogicalType("uuid");
+  private static final BigDecimal BIG_DECIMAL_TYPE = new BigDecimal();
+
+  /** Create a Big Decimal LogicalType that can accept any precision and scale */
+  public static BigDecimal bigDecimal() {
+    return BIG_DECIMAL_TYPE;
+  }
+
+  private static final LogicalType UUID_TYPE = new Uuid();
 
   public static LogicalType uuid() {
     return UUID_TYPE;
+  }
+
+  private static final LogicalType DURATION_TYPE = new Duration();
+
+  public static LogicalType duration() {
+    return DURATION_TYPE;
   }
 
   private static final Date DATE_TYPE = new Date();
@@ -247,6 +265,38 @@ public class LogicalTypes {
 
   public static LocalTimestampMicros localTimestampMicros() {
     return LOCAL_TIMESTAMP_MICROS_TYPE;
+  }
+
+  /** Uuid represents a uuid without a time */
+  public static class Uuid extends LogicalType {
+    private Uuid() {
+      super(UUID);
+    }
+
+    @Override
+    public void validate(Schema schema) {
+      super.validate(schema);
+      if (schema.getType() != Schema.Type.STRING) {
+        throw new IllegalArgumentException("Uuid can only be used with an underlying string type");
+      }
+    }
+  }
+
+  /**
+   * Duration represents a duration, consisting on months, days and milliseconds
+   */
+  public static class Duration extends LogicalType {
+    private Duration() {
+      super(DURATION);
+    }
+
+    @Override
+    public void validate(Schema schema) {
+      super.validate(schema);
+      if (schema.getType() != Schema.Type.FIXED || schema.getFixedSize() != 12) {
+        throw new IllegalArgumentException("Duration can only be used with an underlying fixed type of size 12.");
+      }
+    }
   }
 
   /** Decimal represents arbitrary-precision fixed-scale decimal numbers */
@@ -360,6 +410,20 @@ public class LogicalTypes {
       int result = precision;
       result = 31 * result + scale;
       return result;
+    }
+  }
+
+  public static class BigDecimal extends LogicalType {
+    private BigDecimal() {
+      super(BIG_DECIMAL);
+    }
+
+    @Override
+    public void validate(final Schema schema) {
+      super.validate(schema);
+      if (schema.getType() != Schema.Type.BYTES) {
+        throw new IllegalArgumentException("BigDecimal can only be used with an underlying bytes type");
+      }
     }
   }
 

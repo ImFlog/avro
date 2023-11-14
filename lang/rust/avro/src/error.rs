@@ -19,9 +19,9 @@ use crate::{
     schema::{Name, SchemaKind},
     types::ValueKind,
 };
-use std::fmt;
+use std::{error::Error as _, fmt};
 
-#[derive(thiserror::Error, Debug)]
+#[derive(thiserror::Error)]
 pub enum Error {
     #[error("Bad Snappy CRC32; expected {expected:x} but got {actual:x}")]
     SnappyCrc32 { expected: u32, actual: u32 },
@@ -115,6 +115,9 @@ pub enum Error {
     #[error("expected UUID, got: {0:?}")]
     GetUuid(ValueKind),
 
+    #[error("expected BigDecimal, got: {0:?}")]
+    GetBigdecimal(ValueKind),
+
     #[error("Fixed bytes of size 12 expected, got Fixed of size {0}")]
     GetDecimalFixedBytes(usize),
 
@@ -150,6 +153,12 @@ pub enum Error {
 
     #[error("TimestampMicros expected, got {0:?}")]
     GetTimestampMicros(ValueKind),
+
+    #[error("LocalTimestampMillis expected, got {0:?}")]
+    GetLocalTimestampMillis(ValueKind),
+
+    #[error("LocalTimestampMicros expected, got {0:?}")]
+    GetLocalTimestampMicros(ValueKind),
 
     #[error("Null expected, got {0:?}")]
     GetNull(ValueKind),
@@ -235,6 +244,9 @@ pub enum Error {
     #[error("One union type {0:?} must match the `default`'s value type {1:?}")]
     GetDefaultUnion(SchemaKind, ValueKind),
 
+    #[error("`default`'s value type of field {0:?} in {1:?} must be {2:?}")]
+    GetDefaultRecordField(String, String, String),
+
     #[error("JSON value {0} claims to be u64 but cannot be converted")]
     GetU64FromJson(serde_json::Number),
 
@@ -259,6 +271,9 @@ pub enum Error {
     #[error("Failed to parse schema from JSON")]
     ParseSchemaJson(#[source] serde_json::Error),
 
+    #[error("Failed to read schema")]
+    ReadSchemaFromReader(#[source] std::io::Error),
+
     #[error("Must be a JSON string, object or array")]
     ParseSchemaFromValidJson,
 
@@ -277,14 +292,23 @@ pub enum Error {
     #[error("The decimal precision ({precision}) must be a positive number")]
     DecimalPrecisionMuBePositive { precision: usize },
 
+    #[error("Unreadable big decimal sign")]
+    BigDecimalSign,
+
+    #[error("Unreadable length for big decimal inner bytes: {0}")]
+    BigDecimalLen(#[source] Box<Error>),
+
+    #[error("Unreadable big decimal scale")]
+    BigDecimalScale,
+
     #[error("Unexpected `type` {0} variant for `logicalType`")]
     GetLogicalTypeVariant(serde_json::Value),
 
     #[error("No `type` field found for `logicalType`")]
     GetLogicalTypeField,
 
-    #[error("logicalType must be a string")]
-    GetLogicalTypeFieldType,
+    #[error("logicalType must be a string, but is {0:?}")]
+    GetLogicalTypeFieldType(serde_json::Value),
 
     #[error("Unknown complex type: {0}")]
     GetComplexType(serde_json::Value),
@@ -304,8 +328,17 @@ pub enum Error {
     #[error("Invalid enum symbol name {0}")]
     EnumSymbolName(String),
 
+    #[error("Invalid field name {0}")]
+    FieldName(String),
+
+    #[error("Duplicate field name {0}")]
+    FieldNameDuplicate(String),
+
     #[error("Invalid schema name {0}. It must match the regex '{1}'")]
     InvalidSchemaName(String, &'static str),
+
+    #[error("Invalid namespace {0}. It must match the regex '{1}'")]
+    InvalidNamespace(String, &'static str),
 
     #[error("Duplicate enum symbol {0}")]
     EnumSymbolDuplicate(String),
@@ -427,7 +460,7 @@ pub enum Error {
     #[error("Signed decimal bytes length {0} not equal to fixed schema size {1}.")]
     EncodeDecimalAsFixedError(usize, usize),
 
-    #[error("There is no entry for {0} in the lookup table: {1}.")]
+    #[error("There is no entry for '{0}' in the lookup table: {1}.")]
     NoEntryInLookupTable(String, String),
 
     #[error("Can only encode value type {value_kind:?} as one of {supported_schema:?}")]
@@ -456,5 +489,15 @@ impl serde::ser::Error for Error {
 impl serde::de::Error for Error {
     fn custom<T: fmt::Display>(msg: T) -> Self {
         Error::DeserializeValue(msg.to_string())
+    }
+}
+
+impl fmt::Debug for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let mut msg = self.to_string();
+        if let Some(e) = self.source() {
+            msg.extend([": ", &e.to_string()]);
+        }
+        write!(f, "{}", msg)
     }
 }

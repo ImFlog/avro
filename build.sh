@@ -211,7 +211,13 @@ do
         \! -name '*.asc' \! -name '*.txt' );
       do
         (cd "${f%/*}" && shasum -a 512 "${f##*/}") > "$f.sha512"
-        gpg --passphrase "$password" --armor --output "$f.asc" --detach-sig "$f"
+
+        if [ -z "$GPG_LOCAL_USER" ]; then
+          gpg --pinentry-mode loopback --passphrase "$password" --armor --output "$f.asc" --detach-sig "$f"
+        else
+          gpg --pinentry-mode loopback --local-user="$GPG_LOCAL_USER" --passphrase "$password" --armor --output "$f.asc" --detach-sig "$f"
+        fi
+        
       done
 
       set -x
@@ -305,7 +311,7 @@ do
       } > Dockerfile
       # Include the ruby gemspec for preinstallation.
       # shellcheck disable=SC2086
-      tar -cf- Dockerfile $DOCKER_EXTRA_CONTEXT | docker build $DOCKER_BUILD_XTRA_ARGS -t "$DOCKER_IMAGE_NAME" -
+      tar -cf- Dockerfile $DOCKER_EXTRA_CONTEXT | DOCKER_BUILDKIT=1 docker build $DOCKER_BUILD_XTRA_ARGS -t "$DOCKER_IMAGE_NAME" -
       rm Dockerfile
       # By mapping the .m2 directory you can do an mvn install from
       # within the container and use the result on your normal
@@ -341,7 +347,7 @@ do
 
     docker-test)
       tar -cf- share/docker/Dockerfile $DOCKER_EXTRA_CONTEXT |
-        docker build -t avro-test -f share/docker/Dockerfile -
+        DOCKER_BUILDKIT=1 docker build -t avro-test -f share/docker/Dockerfile -
       docker run --rm -v "${PWD}:/avro${DOCKER_MOUNT_FLAG}" --env "JAVA=${JAVA:-8}" avro-test /avro/share/docker/run-tests.sh
       ;;
 

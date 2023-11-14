@@ -16,9 +16,10 @@
 // under the License.
 
 use crate::{
+    decimal::serialize_big_decimal,
     schema::{
         DecimalSchema, EnumSchema, FixedSchema, Name, Namespace, RecordSchema, ResolvedSchema,
-        Schema, SchemaKind,
+        Schema, SchemaKind, UnionSchema,
     },
     types::{Value, ValueKind},
     util::{zig_i32, zig_i64},
@@ -40,13 +41,13 @@ pub fn encode(value: &Value, schema: &Schema, buffer: &mut Vec<u8>) -> AvroResul
     encode_internal(value, schema, rs.get_names(), &None, buffer)
 }
 
-fn encode_bytes<B: AsRef<[u8]> + ?Sized>(s: &B, buffer: &mut Vec<u8>) {
+pub(crate) fn encode_bytes<B: AsRef<[u8]> + ?Sized>(s: &B, buffer: &mut Vec<u8>) {
     let bytes = s.as_ref();
     encode_long(bytes.len() as i64, buffer);
     buffer.extend_from_slice(bytes);
 }
 
-fn encode_long(i: i64, buffer: &mut Vec<u8>) {
+pub(crate) fn encode_long(i: i64, buffer: &mut Vec<u8>) {
     zig_i64(i, buffer)
 }
 
@@ -70,13 +71,27 @@ pub(crate) fn encode_internal<S: Borrow<Schema>>(
     }
 
     match value {
-        Value::Null => (),
+        Value::Null => {
+            if let Schema::Union(union) = schema {
+                match union.schemas.iter().position(|sch| *sch == Schema::Null) {
+                    None => {
+                        return Err(Error::EncodeValueAsSchemaError {
+                            value_kind: ValueKind::Null,
+                            supported_schema: vec![SchemaKind::Null, SchemaKind::Union],
+                        })
+                    }
+                    Some(p) => encode_long(p as i64, buffer),
+                }
+            } // else {()}
+        }
         Value::Boolean(b) => buffer.push(u8::from(*b)),
         // Pattern | Pattern here to signify that these _must_ have the same encoding.
         Value::Int(i) | Value::Date(i) | Value::TimeMillis(i) => encode_int(*i, buffer),
         Value::Long(i)
         | Value::TimestampMillis(i)
         | Value::TimestampMicros(i)
+        | Value::LocalTimestampMillis(i)
+        | Value::LocalTimestampMicros(i)
         | Value::TimeMicros(i) => encode_long(*i, buffer),
         Value::Float(x) => buffer.extend_from_slice(&x.to_le_bytes()),
         Value::Double(x) => buffer.extend_from_slice(&x.to_le_bytes()),
@@ -114,6 +129,10 @@ pub(crate) fn encode_internal<S: Borrow<Schema>>(
             &uuid.to_string(),
             buffer,
         ),
+        Value::BigDecimal(bg) => {
+            let mut buf: Vec<u8> = serialize_big_decimal(bg);
+            buffer.append(&mut buf);
+        }
         Value::Bytes(bytes) => match *schema {
             Schema::Bytes => encode_bytes(bytes, buffer),
             Schema::Fixed { .. } => buffer.extend(bytes),
@@ -196,39 +215,65 @@ pub(crate) fn encode_internal<S: Borrow<Schema>>(
                 });
             }
         }
-        Value::Record(fields) => {
+        Value::Record(value_fields) => {
             if let Schema::Record(RecordSchema {
                 ref name,
                 fields: ref schema_fields,
-                ref lookup,
                 ..
             }) = *schema
             {
                 let record_namespace = name.fully_qualified_name(enclosing_namespace).namespace;
-                for (name, value) in fields.iter() {
-                    match lookup.get(name) {
-                        Some(idx) => {
-                            encode_internal(
-                                value,
-                                &schema_fields[*idx].schema,
-                                names,
-                                &record_namespace,
-                                buffer,
-                            )?;
+
+                let mut lookup = HashMap::new();
+                value_fields.iter().for_each(|(name, field)| {
+                    lookup.insert(name, field);
+                });
+
+                for schema_field in schema_fields.iter() {
+                    let name = &schema_field.name;
+                    let value_opt = lookup.get(name).or_else(|| {
+                        if let Some(aliases) = &schema_field.aliases {
+                            aliases.iter().find_map(|alias| lookup.get(alias))
+                        } else {
+                            None
                         }
-                        None => {
-                            return Err(Error::NoEntryInLookupTable(
-                                name.clone(),
-                                format!("{lookup:?}"),
-                            ));
+                    });
+
+                    if let Some(value) = value_opt {
+                        encode_internal(
+                            value,
+                            &schema_field.schema,
+                            names,
+                            &record_namespace,
+                            buffer,
+                        )?;
+                    } else {
+                        return Err(Error::NoEntryInLookupTable(
+                            name.clone(),
+                            format!("{lookup:?}"),
+                        ));
+                    }
+                }
+            } else if let Schema::Union(UnionSchema { schemas, .. }) = schema {
+                let original_size = buffer.len();
+                for (index, schema) in schemas.iter().enumerate() {
+                    encode_long(index as i64, buffer);
+                    match encode_internal(value, schema, names, enclosing_namespace, buffer) {
+                        Ok(_) => return Ok(()),
+                        Err(_) => {
+                            buffer.truncate(original_size); //undo any partial encoding
                         }
                     }
                 }
+                return Err(Error::EncodeValueAsSchemaError {
+                    value_kind: ValueKind::Record,
+                    supported_schema: vec![SchemaKind::Record, SchemaKind::Union],
+                });
             } else {
                 error!("invalid schema type for Record: {:?}", schema);
                 return Err(Error::EncodeValueAsSchemaError {
                     value_kind: ValueKind::Record,
-                    supported_schema: vec![SchemaKind::Record],
+                    supported_schema: vec![SchemaKind::Record, SchemaKind::Union],
                 });
             }
         }
